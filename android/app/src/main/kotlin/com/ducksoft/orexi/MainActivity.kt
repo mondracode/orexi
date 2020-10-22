@@ -1,4 +1,4 @@
-package com.example.orexi
+package com.ducksoft.orexi
 
 import io.flutter.embedding.android.FlutterActivity
 

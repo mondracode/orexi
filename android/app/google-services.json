@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "721198734347",
+    "firebase_url": "https://orexiapp.firebaseio.com",
+    "project_id": "orexiapp",
+    "storage_bucket": "orexiapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:721198734347:android:b8998c0e003937c1953b0e",
+        "android_client_info": {
+          "package_name": "com.ducksoft.orexi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "721198734347-ot3pgtmmv7lo9ssmncvl40cv54h5crek.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSmdTqFeuIp8bfMgPPLu2vRYW1Bv9ZgPw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "721198734347-ot3pgtmmv7lo9ssmncvl40cv54h5crek.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
