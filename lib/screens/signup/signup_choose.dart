@@ -13,7 +13,7 @@ class SignupSelect extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(size.height * 0.1),
         child: AppBar(
-          backgroundColor: gray,
+          backgroundColor: white,
           centerTitle: true,
           iconTheme: IconThemeData(
             color: black,
@@ -47,6 +47,14 @@ class SignupSelect extends StatelessWidget {
                 },
                 img: Image.asset('assets/images/placeholder.png'),
               ),
+              Text(
+                "Quiero comprar",
+                style: TextStyle(
+                  color: black,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               ChooseButton(
                 press: () {
                   Navigator.push(
@@ -59,6 +67,14 @@ class SignupSelect extends StatelessWidget {
                   );
                 },
                 img: Image.asset('assets/images/placeholder.png'),
+              ),
+              Text(
+                "Quiero vender",
+                style: TextStyle(
+                  color: black,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),

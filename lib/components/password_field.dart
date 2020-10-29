@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'text_field_container.dart';
-import '../constants.dart';
+import 'package:orexi/components/text_field_container.dart';
+import 'package:orexi/constants.dart';
 
 class PasswordField extends StatelessWidget {
   final ValueChanged<String> onChanged;
@@ -20,10 +19,10 @@ class PasswordField extends StatelessWidget {
         cursorColor: gray,
         decoration: InputDecoration(
           hintText: "Contraseña",
-          icon: Icon(
-            Icons.lock,
-            color: darkGray,
-          ),
+          // icon: Icon(
+          //   Icons.lock,
+          //   color: darkGray,
+          // ),
           suffixIcon: Icon(
             Icons.visibility,
             color: darkGray,
