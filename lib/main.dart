@@ -13,6 +13,8 @@ void main() {
 class App extends StatelessWidget {
   // Create the initialization Future outside of `build`:
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  //final firestoreInstance = FirebaseFirestore.instance;
+  //acá algo falla
 
   @override
   Widget build(BuildContext context) {
