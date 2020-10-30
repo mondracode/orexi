@@ -5,12 +5,12 @@ import 'package:orexi/constants.dart';
 
 class InputField extends StatelessWidget {
   final String hintText;
-  final IconData icon;
+  //final IconData icon;
   final ValueChanged<String> onChanged;
   const InputField({
     Key key,
     this.hintText,
-    this.icon,
+    //this.icon,
     this.onChanged,
   }) : super(key: key);
 
@@ -21,10 +21,10 @@ class InputField extends StatelessWidget {
         onChanged: onChanged,
         cursorColor: gray,
         decoration: InputDecoration(
-          icon: Icon(
-            icon,
-            color: gray,
-          ),
+          // icon: Icon(
+          //   icon,
+          //   color: gray,
+          // ),
           hintText: hintText,
           border: InputBorder.none,
         ),

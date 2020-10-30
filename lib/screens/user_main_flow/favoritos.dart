@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:orexi/constants.dart';
+import 'package:orexi/screens/user_main_flow/components/background.dart';
 
 class Favoritos extends StatefulWidget {
   @override
@@ -10,11 +12,25 @@ class _FavoritosState extends State<Favoritos> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: new Text('Favoritos'),
+        backgroundColor: white,
         automaticallyImplyLeading: false,
+        // iconTheme: IconThemeData(
+        //   color: black,
+        // ),
+        elevation: 0,
+        title: Text(
+          "Favoritos",
+          style: TextStyle(
+            color: black,
+            fontWeight: FontWeight.bold,
+            fontSize: 28.0,
+          ),
+        ),
       ),
-      body: Center(
-        child: new Text('Test'),
+      body: Background(
+        child: Center(
+          child: Text('Test'),
+        ),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:orexi/constants.dart';
 
 import 'cerca.dart';
 import 'favoritos.dart';
@@ -28,10 +29,15 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: _onTappedBar,
+        //elevation: 50,
+        backgroundColor: black,
+        iconSize: 30,
+        selectedItemColor: green,
+        unselectedItemColor: darkGray,
         currentIndex: _currentIndex,
         showSelectedLabels: false,
         showUnselectedLabels: false,
@@ -53,8 +59,6 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
             label: 'Cuenta',
           ),
         ],
-        selectedItemColor: Colors.green[400],
-        unselectedItemColor: Colors.blueGrey[100],
       ),
     );
   }
