@@ -11,10 +11,19 @@ class Welcome extends StatefulWidget {
 class _WelcomeState extends State<Welcome> {
   @override
   Widget build(BuildContext context) {
-    //Query query = FirebaseFirestore.instance.collection('establecimiento');
-    //query = query.where('telefono', isEqualTo: "4206969");
-    //print(query);
+    Query query = FirebaseFirestore.instance.collection('establecimiento');
 
+    FirebaseFirestore.instance
+        .collection('establecimiento')
+        .where('telefono', isEqualTo: "4206969")
+        .snapshots()
+        .listen(
+      (data) {
+        print('Nombre: ${data.docs[0]['nombre']}');
+        print('Direccion: ${data.docs[0]['direccion']}');
+        print('Telefono: ${data.docs[0]['telefono']}');
+      },
+    );
     return Scaffold(
       body: Body(),
     );

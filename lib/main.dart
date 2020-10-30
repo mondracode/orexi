@@ -5,22 +5,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'screens/loading/loading_screen.dart';
 import 'screens/error/error_screen.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(App());
 }
 
 class App extends StatelessWidget {
   // Create the initialization Future outside of `build`:
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-  //final firestoreInstance = FirebaseFirestore.instance;
-  //acá algo falla
+  final firestoreInstance = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       // Initialize FlutterFire:
-      future: _initialization,
+      future: Firebase.initializeApp(),
       builder: (context, snapshot) {
         // Check for errors
         if (snapshot.hasError) {
