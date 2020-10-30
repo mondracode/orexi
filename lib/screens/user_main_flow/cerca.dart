@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:orexi/constants.dart';
 import 'package:orexi/screens/user_main_flow/components/background.dart';
+import 'package:orexi/screens/user_main_flow/components/search_field.dart';
 
 class Cerca extends StatefulWidget {
   @override
@@ -14,9 +15,6 @@ class _CercaState extends State<Cerca> {
       appBar: AppBar(
         backgroundColor: white,
         automaticallyImplyLeading: false,
-        // iconTheme: IconThemeData(
-        //   color: black,
-        // ),
         elevation: 0,
         title: Text(
           "Cerca a ti",
@@ -26,10 +24,22 @@ class _CercaState extends State<Cerca> {
             fontSize: 28.0,
           ),
         ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.filter_alt),
+            iconSize: 30,
+            color: black,
+            onPressed: () {},
+          ),
+        ],
       ),
       body: Background(
-        child: Center(
-          child: Text('Test'),
+        child: Column(
+          children: <Widget>[
+            SearchField(
+              hintText: "¿Qué quieres comer?",
+            ),
+          ],
         ),
       ),
     );
