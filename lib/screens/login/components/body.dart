@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:orexi/components/already_have_account.dart';
 import 'package:orexi/components/input_field.dart';
@@ -5,6 +6,7 @@ import 'package:orexi/components/password_field.dart';
 import 'package:orexi/components/rounded_button.dart';
 import 'package:orexi/constants.dart';
 import 'package:orexi/screens/signup/signup_choose.dart';
+import 'package:orexi/screens/user_main_flow/bottom_nav_bar.dart';
 import 'package:orexi/screens/welcome/components/background.dart';
 
 class Body extends StatelessWidget {
@@ -14,6 +16,8 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String authEmail;
+    String authPassword;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
@@ -42,15 +46,30 @@ class Body extends StatelessWidget {
             children: <Widget>[
               InputField(
                 hintText: "E-mail",
-                onChanged: (value) {},
+                onChanged: (value) {
+                  authEmail = value;
+                },
               ),
               PasswordField(
-                onChanged: (value) {},
+                onChanged: (value) {
+                  authPassword = value;
+                },
               ),
               SizedBox(height: size.height * 0.03),
               RoundedButton(
                 text: "INICIAR SESIÓN",
-                press: () {},
+                press: () {
+                  authLogin(authEmail, authPassword);
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return MyBottomNavigationBar();
+                      },
+                    ),
+                  );
+                },
               ),
               SizedBox(height: size.height * 0.03),
               AlreadyHaveAccount(
@@ -70,5 +89,18 @@ class Body extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> authLogin(String authEmail, String authPassword) async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: authEmail, password: authPassword);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    }
   }
 }

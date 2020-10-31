@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:orexi/screens/signup/components/body_client.dart';
+import 'package:orexi/screens/user_main_flow/bottom_nav_bar.dart';
 import 'package:orexi/screens/welcome/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'screens/loading/loading_screen.dart';
 import 'screens/error/error_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,6 +17,7 @@ void main() async {
 class App extends StatelessWidget {
   // Create the initialization Future outside of `build`:
   final firestoreInstance = FirebaseFirestore.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -51,11 +55,19 @@ class App extends StatelessWidget {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    bool isLoggedIn = false;
+    //Check if logged in
+    FirebaseAuth.instance.authStateChanges().listen((User user) {
+      if (!(user == null)) {
+        isLoggedIn = true;
+      }
+    });
+    // if not logged in
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Orexi',
       theme: ThemeData(fontFamily: 'OpenSans'),
-      home: Welcome(),
+      home: isLoggedIn ? MyBottomNavigationBar() : Welcome(),
     );
   }
 }
