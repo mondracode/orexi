@@ -44,6 +44,7 @@ class _CercaState extends State<Cerca> {
             stream: FirebaseFirestore.instance
                 .collection('producto')
                 .limit(20)
+                .orderBy('distancia', descending: false)
                 .snapshots(),
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {

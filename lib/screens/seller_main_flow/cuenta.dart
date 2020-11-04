@@ -117,15 +117,15 @@ class _CuentaState extends State<Cuenta> {
     );
   }
 
-  Establecimiento buildEstablecimientoFromQuery() {
-    var userID = FirebaseFirestore.instance
-        .collection('establecimiento')
-        .doc(user.email)
-        .get()
-        .then((value) => null);
+  // Establecimiento buildEstablecimientoFromQuery() {
+  //   var userID = FirebaseFirestore.instance
+  //       .collection('establecimiento')
+  //       .doc(user.email)
+  //       .get()
+  //       .then((value) => null);
 
-    Establecimiento establecimiento = Establecimiento.fromSnapshot(userID);
+  //   Establecimiento establecimiento = Establecimiento.fromSnapshot(userID);
 
-    return establecimiento;
-  }
+  //   return establecimiento;
+  // }
 }

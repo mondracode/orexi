@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:orexi/components/already_have_account.dart';
@@ -17,9 +18,10 @@ class ProductDetails extends StatefulWidget {
 
 class _ProductDetailsState extends State<ProductDetails> {
   String nombre;
-  String porciones;
-  String precio;
-  String image= 'assets/images/placeholder.png';
+  String descripcion;
+  int precio;
+  String image = 'assets/images/placeholder.png';
+  static User user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -45,23 +47,17 @@ class _ProductDetailsState extends State<ProductDetails> {
           ),
         ),
       ),
-      
       body: Background(
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              
-              
               ChooseButton(
                 press: () {
                   //Cambiar imagen
                 },
                 img: Image.asset('assets/images/placeholder.png'),
               ),
-
-
-
               InputField(
                 hintText: "Nombre del producto",
                 //icon: IconData(58840),
@@ -69,39 +65,59 @@ class _ProductDetailsState extends State<ProductDetails> {
                   nombre = value;
                 },
               ),
+              Container(
+                  child: descripcion == null
+                      ? Text(
+                          "El producto debe tener un nombre",
+                          style: TextStyle(
+                            color: Colors.red,
+                          ),
+                        )
+                      : SizedBox(height: 0)),
               InputField(
-                hintText: "Porciones",
+                hintText: "Descripción",
                 onChanged: (value) {
-                  porciones = value;
+                  descripcion = value;
                 },
               ),
-              
               InputField(
                 hintText: "Precio",
                 onChanged: (value) {
-                  precio= value;
+                  precio = int.parse(value);
                 },
               ),
-              
-             
+              Container(
+                  child: descripcion == null
+                      ? Text(
+                          "El producto debe tener un precio",
+                          style: TextStyle(
+                            color: Colors.red,
+                          ),
+                        )
+                      : SizedBox(height: 0)),
               SizedBox(height: size.height * 0.03),
               RoundedButton(
-                text: "Publicar",
-                press: () async { 
-                        //excepciones para publicar 
-                        Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return SellerBottomNavigationBar();
-                          },
-                        ),
-                      );
+                  text: "Publicar",
+                  press: () async {
+                    //excepciones para publicar
+                    FirebaseFirestore.instance.collection('producto').add({
+                      'nombre': nombre,
+                      'descripcion': descripcion,
+                      'precio': precio,
+                      'id_establecimiento': user.email,
+                      'descuento': 0,
+                      'distancia': 555
+                    });
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return SellerBottomNavigationBar();
+                        },
+                      ),
+                    );
                     //return PantallaDeVendedor();
-                  }
-              ),
-              
-              
+                  }),
             ],
           ),
         ),
