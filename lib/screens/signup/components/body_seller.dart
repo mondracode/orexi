@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:orexi/classes/establecimiento.dart';
 import 'package:orexi/components/already_have_account.dart';
 import 'package:orexi/components/input_field.dart';
 import 'package:orexi/components/password_field.dart';
@@ -17,11 +19,12 @@ class BodySeller extends StatefulWidget {
 class _BodySellerState extends State<BodySeller> {
   String authEmail;
   String authPassword;
+  String nombreEstablecimiento;
+  String direccionEstablecimiento;
   bool weakPassword = false;
   bool emailInUse = false;
   @override
   Widget build(BuildContext context) {
-    String authEmail;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
@@ -51,7 +54,9 @@ class _BodySellerState extends State<BodySeller> {
               InputField(
                 hintText: "Nombre del establecimiento",
                 //icon: IconData(58840),
-                onChanged: (value) {},
+                onChanged: (value) {
+                  nombreEstablecimiento = value;
+                },
               ),
               InputField(
                 hintText: "E-mail",
@@ -60,36 +65,41 @@ class _BodySellerState extends State<BodySeller> {
                 },
               ),
               Container(
-                  child: Text(
-                emailInUse
-                    ? "Esa dirección de correo ya se encuentra en uso"
-                    : "",
-                style: TextStyle(
-                  color: Colors.red,
-                ),
-              )),
+                  child: emailInUse
+                      ? Text(
+                          "Esa dirección de correo ya se encuentra en uso",
+                          style: TextStyle(
+                            color: Colors.red,
+                          ),
+                        )
+                      : SizedBox(height: 0)),
               InputField(
                 hintText: "Dirección del establecimiento",
-                onChanged: (value) {},
+                onChanged: (value) {
+                  direccionEstablecimiento = value;
+                },
               ),
               PasswordField(
                 onChanged: (value) {
                   authPassword = value;
                 },
               ),
-              Text(
-                weakPassword ? "Esa contraseña es muy débil" : "",
-                style: TextStyle(
-                  color: Colors.red,
-                ),
-              ),
+              Container(
+                  child: weakPassword
+                      ? Text(
+                          "Esa contraseña es muy débil",
+                          style: TextStyle(
+                            color: Colors.red,
+                          ),
+                        )
+                      : SizedBox(height: 0)),
               SizedBox(height: size.height * 0.03),
               RoundedButton(
                 text: "COMENZAR A VENDER",
                 press: () async {
                   int errorCode =
                       await authSignUp(authEmail, authPassword, context);
-                  print(errorCode);
+                  //print(errorCode);
                   switch (errorCode) {
                     case 0:
                       setState(() {
@@ -104,6 +114,16 @@ class _BodySellerState extends State<BodySeller> {
                       break;
 
                     case -1: //succesful login
+
+                      FirebaseFirestore.instance
+                          .collection('establecimiento')
+                          .doc(authEmail)
+                          .set({
+                        'nombre': nombreEstablecimiento,
+                        'direccion': direccionEstablecimiento,
+                        'telefono': "4206969"
+                      });
+
                       Navigator.push(
                         context,
                         MaterialPageRoute(

@@ -6,7 +6,6 @@ import 'cuenta.dart';
 import 'pedidos.dart';
 import 'publicaciones.dart';
 
-
 class SellerBottomNavigationBar extends StatefulWidget {
   @override
   _MyBottomNavigationBarState createState() => _MyBottomNavigationBarState();
@@ -29,17 +28,14 @@ class _MyBottomNavigationBarState extends State<SellerBottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    FirebaseAuth.instance.authStateChanges().listen((User user) {
-      if (user == null) {
-        print('User is currently signed out!');
-      } else {
-        print('User is signed in!');
-        print(user.email);
-      }
-    });
-
-  
-
+    // FirebaseAuth.instance.authStateChanges().listen((User user) {
+    //   if (user == null) {
+    //     print('User is currently signed out!');
+    //   } else {
+    //     print('User is signed in!');
+    //     print(user.email);
+    //   }
+    // });
 
     return Scaffold(
       body: _children[_currentIndex],
@@ -54,7 +50,6 @@ class _MyBottomNavigationBarState extends State<SellerBottomNavigationBar> {
         showSelectedLabels: false,
         showUnselectedLabels: false,
         items: const <BottomNavigationBarItem>[
-
           BottomNavigationBarItem(
             icon: Icon(Icons.article_rounded),
             label: 'Publicaciones',

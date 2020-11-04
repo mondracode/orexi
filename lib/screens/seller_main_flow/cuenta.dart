@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:orexi/classes/establecimiento.dart';
 import 'package:orexi/components/rounded_button.dart';
 import 'package:orexi/constants.dart';
 import 'package:orexi/screens/seller_main_flow/components/background.dart';
@@ -9,8 +12,9 @@ class Cuenta extends StatefulWidget {
 }
 
 class _CuentaState extends State<Cuenta> {
+  static User user = FirebaseAuth.instance.currentUser;
   String userIcon = 'assets/images/placeholder.png';
-  String userName = 'Crepes & Waffles';
+  String userName = user.email;
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +43,15 @@ class _CuentaState extends State<Cuenta> {
                 backgroundImage: AssetImage(userIcon),
               ),
               SizedBox(height: size.height * 0.03),
-              Text(
-                userName,
-                style: TextStyle(
-                  color: black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 26,
+              Container(
+                padding: EdgeInsets.all(40.0),
+                child: Text(
+                  userName,
+                  style: TextStyle(
+                    color: black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 26,
+                  ),
                 ),
               ),
               SizedBox(height: size.height * 0.03),
@@ -95,5 +102,17 @@ class _CuentaState extends State<Cuenta> {
         ),
       ),
     );
+  }
+
+  Establecimiento buildEstablecimientoFromQuery() {
+    var userID = FirebaseFirestore.instance
+        .collection('establecimiento')
+        .doc(user.email)
+        .get()
+        .then((value) => null);
+
+    Establecimiento establecimiento = Establecimiento.fromSnapshot(userID);
+
+    return establecimiento;
   }
 }
