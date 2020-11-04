@@ -4,12 +4,14 @@ import 'package:orexi/components/input_field.dart';
 import 'package:orexi/components/password_field.dart';
 import 'package:orexi/components/rounded_button.dart';
 import 'package:orexi/screens/login/login_screen.dart';
+import 'package:orexi/screens/seller_main_flow/bottom_nav_bar.dart';
 import 'package:orexi/screens/welcome/components/background.dart';
 import 'package:orexi/constants.dart';
 
 class BodySeller extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    String authEmail;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
@@ -55,7 +57,18 @@ class BodySeller extends StatelessWidget {
               SizedBox(height: size.height * 0.03),
               RoundedButton(
                 text: "COMENZAR A VENDER",
-                press: () {},
+                press: () {
+                  
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return SellerBottomNavigationBar();
+                      },
+                    ),
+                  );
+                },
               ),
               SizedBox(height: size.height * 0.03),
               AlreadyHaveAccount(
