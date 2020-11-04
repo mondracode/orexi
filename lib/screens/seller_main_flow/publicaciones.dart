@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:orexi/constants.dart';
+import 'package:orexi/screens/products_flow/agregar_productos.dart';
 import 'package:orexi/screens/seller_main_flow/components/background.dart';
 import 'package:orexi/screens/seller_main_flow/components/publications.dart';
+import 'package:orexi/screens/user_main_flow/components/search_field.dart';
+
 
 class Publicaciones extends StatefulWidget {
   @override
@@ -30,6 +33,9 @@ class _PublicacionesState extends State<Publicaciones> {
         child: ListView(
           padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
           children: <Widget>[
+            SearchField(
+              hintText: "Buscas entre tus publicaciones?",
+            ),
             
             SizedBox(height: size.height * 0.03),
             NearProduct(
@@ -62,7 +68,14 @@ class _PublicacionesState extends State<Publicaciones> {
 
       floatingActionButton: FloatingActionButton(
       onPressed: () {
-        // Add your onPressed code here!
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+             return AgregarProductos();
+            },
+          ),
+        );                   
       },
       child: Icon(Icons.add_rounded),
       backgroundColor: Colors.green,
