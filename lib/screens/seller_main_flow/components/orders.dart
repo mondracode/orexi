@@ -103,7 +103,7 @@ class NearProduct extends StatelessWidget {
                   ),
                   Container(
                     height: 25,
-                    width: 200,
+                    width: 130,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(40),
                       child: FlatButton(

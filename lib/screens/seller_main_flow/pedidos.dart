@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:orexi/constants.dart';
 import 'package:orexi/screens/seller_main_flow/components/background.dart';
 import 'package:orexi/screens/seller_main_flow/components/orders.dart';
+import 'package:orexi/screens/user_main_flow/components/search_field.dart';
+
 
 class Pedidos extends StatefulWidget {
   @override
@@ -31,6 +33,10 @@ class _PedidosState extends State<Pedidos> {
           padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
           children: <Widget>[
            
+           SearchField(
+              hintText: "Encuentra un pedido",
+            ), 
+
             SizedBox(height: size.height * 0.03),
             NearProduct(
               productImage: 'assets/images/placeholder.png',
