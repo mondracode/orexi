@@ -42,7 +42,7 @@ class _CercaState extends State<Cerca> {
           padding: EdgeInsets.all(16),
           child: StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
-                .collection('establecimiento')
+                .collection('producto')
                 .limit(20)
                 .snapshots(),
             builder:
@@ -58,9 +58,9 @@ class _CercaState extends State<Cerca> {
                   return NearProduct(
                     productImage: 'assets/images/placeholder.png',
                     productName: doc["nombre"],
-                    productDesc: doc["direccion"],
-                    productPrice: 420,
-                    productDistance: 69,
+                    productDesc: doc["descripcion"],
+                    productPrice: doc["precio"],
+                    productDistance: doc["distancia"],
                     press: () {},
                   );
                 }).toList(),

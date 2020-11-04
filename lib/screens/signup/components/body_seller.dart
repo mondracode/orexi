@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:orexi/components/already_have_account.dart';
 import 'package:orexi/components/input_field.dart';
@@ -7,7 +8,16 @@ import 'package:orexi/screens/login/login_screen.dart';
 import 'package:orexi/screens/welcome/components/background.dart';
 import 'package:orexi/constants.dart';
 
-class BodySeller extends StatelessWidget {
+class BodySeller extends StatefulWidget {
+  @override
+  _BodySellerState createState() => _BodySellerState();
+}
+
+class _BodySellerState extends State<BodySeller> {
+  String authEmail;
+  String authPassword;
+  bool weakPassword = false;
+  bool emailInUse = false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -43,19 +53,58 @@ class BodySeller extends StatelessWidget {
               ),
               InputField(
                 hintText: "E-mail",
-                onChanged: (value) {},
+                onChanged: (value) {
+                  authEmail = value;
+                },
               ),
+              Container(
+                  child: Text(
+                emailInUse
+                    ? "Esa dirección de correo ya se encuentra en uso"
+                    : "",
+                style: TextStyle(
+                  color: Colors.red,
+                ),
+              )),
               InputField(
                 hintText: "Dirección del establecimiento",
                 onChanged: (value) {},
               ),
               PasswordField(
-                onChanged: (value) {},
+                onChanged: (value) {
+                  authPassword = value;
+                },
+              ),
+              Text(
+                weakPassword ? "Esa contraseña es muy débil" : "",
+                style: TextStyle(
+                  color: Colors.red,
+                ),
               ),
               SizedBox(height: size.height * 0.03),
               RoundedButton(
                 text: "COMENZAR A VENDER",
-                press: () {},
+                press: () async {
+                  int errorCode =
+                      await authSignUp(authEmail, authPassword, context);
+                  print(errorCode);
+                  switch (errorCode) {
+                    case 0:
+                      setState(() {
+                        weakPassword = true;
+                      });
+                      break;
+
+                    case 1:
+                      setState(() {
+                        emailInUse = true;
+                      });
+                      break;
+
+                    case -1: //succesful login
+                    //return PantallaDeVendedor();
+                  }
+                },
               ),
               SizedBox(height: size.height * 0.03),
               AlreadyHaveAccount(
@@ -77,4 +126,21 @@ class BodySeller extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<int> authSignUp(String authEmail, String authPassword, context) async {
+  try {
+    UserCredential userCredential = await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
+            email: authEmail, password: authPassword);
+  } on FirebaseAuthException catch (e) {
+    if (e.code == 'weak-password') {
+      return 0;
+    } else if (e.code == 'email-already-in-use') {
+      return 1;
+    }
+  } catch (e) {
+    print(e);
+  }
+  return -1;
 }
