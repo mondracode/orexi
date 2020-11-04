@@ -5,6 +5,7 @@ import 'package:orexi/components/input_field.dart';
 import 'package:orexi/components/password_field.dart';
 import 'package:orexi/components/rounded_button.dart';
 import 'package:orexi/screens/login/login_screen.dart';
+import 'package:orexi/screens/seller_main_flow/bottom_nav_bar.dart';
 import 'package:orexi/screens/welcome/components/background.dart';
 import 'package:orexi/constants.dart';
 
@@ -20,6 +21,7 @@ class _BodySellerState extends State<BodySeller> {
   bool emailInUse = false;
   @override
   Widget build(BuildContext context) {
+    String authEmail;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
@@ -102,6 +104,14 @@ class _BodySellerState extends State<BodySeller> {
                       break;
 
                     case -1: //succesful login
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return SellerBottomNavigationBar();
+                          },
+                        ),
+                      );
                     //return PantallaDeVendedor();
                   }
                 },
