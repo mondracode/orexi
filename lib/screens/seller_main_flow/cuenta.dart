@@ -12,6 +12,13 @@ class _CuentaState extends State<Cuenta> {
   String userIcon = 'assets/images/placeholder.png';
   String userName = 'Crepes & Waffles';
 
+  bool val = false;
+  onSwitchValueChanged(bool newVal) {
+    setState(() {
+      val = newVal;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -47,6 +54,12 @@ class _CuentaState extends State<Cuenta> {
                   fontSize: 26,
                 ),
               ),
+              Text("Estado del establecimiento"),
+              Switch(
+                  value: val,
+                  onChanged: (newVal) {
+                    onSwitchValueChanged(newVal);
+                  }),
               SizedBox(height: size.height * 0.03),
               RoundedButton(
                 text: "MI RESTAURANTE",
