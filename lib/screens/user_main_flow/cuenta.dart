@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:orexi/components/rounded_button.dart';
 import 'package:orexi/constants.dart';
 import 'package:orexi/screens/user_main_flow/components/background.dart';
+import 'package:orexi/screens/user_main_flow/reportar.dart';
 
 class Cuenta extends StatefulWidget {
   @override
@@ -12,7 +13,8 @@ class Cuenta extends StatefulWidget {
 class _CuentaState extends State<Cuenta> {
   static User user = FirebaseAuth.instance.currentUser;
   String userIcon = 'assets/images/placeholder.png';
-  String userName = user.email;
+  // Comentado mientras tanto porque no hay email
+  //String userName = user.email;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,8 @@ class _CuentaState extends State<Cuenta> {
               Container(
                 padding: EdgeInsets.all(40.0),
                 child: Text(
-                  userName,
+                  //userName,
+                  "Potato",
                   style: TextStyle(
                     color: black,
                     fontWeight: FontWeight.bold,
@@ -60,6 +63,13 @@ class _CuentaState extends State<Cuenta> {
               RoundedButton(
                 text: "HISTORIAL DE RESERVAS",
                 press: () {},
+              ),
+              RoundedButton(
+                text: "AYUDA",
+                press: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Reportar()));
+                },
               ),
               RoundedButton(
                 text: "PREFERENCIAS",
@@ -95,6 +105,7 @@ class _CuentaState extends State<Cuenta> {
                   letterSpacing: 8,
                 ),
               ),
+              SizedBox(height: size.height * 0.01),
             ],
           ),
         ),

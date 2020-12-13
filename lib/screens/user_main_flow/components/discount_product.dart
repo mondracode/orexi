@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:orexi/constants.dart';
+import 'package:orexi/screens/user_main_flow/components/popup_reservar.dart';
 
-class DiscountProduct extends StatelessWidget {
+class DiscountProduct extends StatefulWidget {
   final String productId;
   final String productImage;
   final String productName;
@@ -24,10 +25,16 @@ class DiscountProduct extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _DiscountProductState createState() => _DiscountProductState();
+}
+
+class _DiscountProductState extends State<DiscountProduct> {
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     String discount =
-        (((productFormerPrice - productCurrentPrice) / productFormerPrice) *
+        (((widget.productFormerPrice - widget.productCurrentPrice) /
+                        widget.productFormerPrice) *
                     100)
                 .toStringAsFixed(2) +
             "%";
@@ -74,7 +81,7 @@ class DiscountProduct extends StatelessWidget {
                 //width: MediaQuery.of(context).size.width * 0.25,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(productImage),
+                    image: AssetImage(widget.productImage),
                     fit: BoxFit.fitHeight,
                   ),
                   color: gray,
@@ -91,7 +98,7 @@ class DiscountProduct extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    productName,
+                    widget.productName,
                     style: TextStyle(
                       color: black,
                       fontSize: 14,
@@ -99,7 +106,7 @@ class DiscountProduct extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    productDesc,
+                    widget.productDesc,
                     style: TextStyle(
                       color: black,
                       fontSize: 12,
@@ -113,21 +120,25 @@ class DiscountProduct extends StatelessWidget {
                       ),
                       children: <TextSpan>[
                         TextSpan(
-                          text: "\$" + productCurrentPrice.toString() + " ",
+                          text: "\$" +
+                              widget.productCurrentPrice.toString() +
+                              " ",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: green,
                           ),
                         ),
                         TextSpan(
-                          text: "\$" + productFormerPrice.toString(),
+                          text: "\$" + widget.productFormerPrice.toString(),
                           style: TextStyle(
                             color: black,
                             decoration: TextDecoration.lineThrough,
                           ),
                         ),
                         TextSpan(
-                          text: " - " + productDistance.toString() + " metros",
+                          text: " - " +
+                              widget.productDistance.toString() +
+                              " metros",
                           style: TextStyle(color: black),
                         ),
                       ],
@@ -139,7 +150,15 @@ class DiscountProduct extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(40),
                       child: FlatButton(
-                        onPressed: press,
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (_) {
+                              return popupReservar(
+                                  nombreAlerta: widget.productName);
+                            },
+                          );
+                        },
                         color: green,
                         child: Text(
                           "Reservar",
