@@ -158,23 +158,6 @@ class _BodySellerState extends State<BodySeller> {
   }
 }
 
-// Future<int> authSignUp(String authEmail, String authPassword, context) async {
-//   try {
-//     UserCredential userCredential = await FirebaseAuth.instance
-//         .createUserWithEmailAndPassword(
-//             email: authEmail, password: authPassword);
-//   } on FirebaseAuthException catch (e) {
-//     if (e.code == 'weak-password') {
-//       return 0;
-//     } else if (e.code == 'email-already-in-use') {
-//       return 1;
-//     }
-//   } catch (e) {
-//     print(e);
-//   }
-//   return -1;
-// }
-
 Future<int> authSignUp(String authEmail, String authPassword, context) async {
   int code = -1;
   UserCredential userCredential = await FirebaseAuth.instance

@@ -9,15 +9,22 @@ import 'package:orexi/screens/signup/signup_choose.dart';
 import 'package:orexi/screens/user_main_flow/bottom_nav_bar.dart';
 import 'package:orexi/screens/welcome/components/background.dart';
 
-class Body extends StatelessWidget {
-  const Body({
-    Key key,
-  }) : super(key: key);
+class Body extends StatefulWidget {
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  // const Body({
+  //   Key key,
+  // }) : super(key: key);
+  String authEmail;
+  String authPassword;
+  bool userNotFound = false;
+  bool wrongPassword = false;
 
   @override
   Widget build(BuildContext context) {
-    String authEmail;
-    String authPassword;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
@@ -50,25 +57,57 @@ class Body extends StatelessWidget {
                   authEmail = value;
                 },
               ),
+              Container(
+                  child: userNotFound
+                      ? Text(
+                          "Usuario no encontrado",
+                          style: TextStyle(
+                            color: Colors.red,
+                          ),
+                        )
+                      : SizedBox(height: 0)),
               PasswordField(
                 onChanged: (value) {
                   authPassword = value;
                 },
               ),
+              Container(
+                  child: wrongPassword
+                      ? Text(
+                          "La contraseña es incorrecta",
+                          style: TextStyle(
+                            color: Colors.red,
+                          ),
+                        )
+                      : SizedBox(height: 0)),
               SizedBox(height: size.height * 0.03),
               RoundedButton(
                 text: "INICIAR SESIÓN",
-                press: () {
-                  authLogin(authEmail, authPassword);
+                press: () async {
+                  int errorCode =
+                      await authLogin(authEmail, authPassword, context);
 
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return MyBottomNavigationBar();
-                      },
-                    ),
-                  );
+                  switch (errorCode) {
+                    case 0:
+                      setState(() {
+                        userNotFound = true;
+                      });
+                      break;
+                    case 1:
+                      setState(() {
+                        wrongPassword = true;
+                      });
+                      break;
+                    case -1:
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return MyBottomNavigationBar();
+                          },
+                        ),
+                      );
+                  }
                 },
               ),
               SizedBox(height: size.height * 0.03),
@@ -91,16 +130,19 @@ class Body extends StatelessWidget {
     );
   }
 
-  Future<void> authLogin(String authEmail, String authPassword) async {
-    try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: authEmail, password: authPassword);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+  Future<int> authLogin(String authEmail, String authPassword, context) async {
+    int code = -1;
+    UserCredential userCredential = await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: authEmail, password: authPassword)
+        .catchError((error) {
+      print(error.message);
+      if (error.code == 'user-not-found') {
+        code = 0;
+      } else if (error.code == 'wrong-password') {
+        code = 1;
       }
-    }
+    });
+
+    return code;
   }
 }
