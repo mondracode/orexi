@@ -40,6 +40,11 @@ class _CuentaState extends State<Cuenta> {
 
   @override
   Widget build(BuildContext context) {
+    user = FirebaseAuth.instance.currentUser;
+    user.reload();
+    user = FirebaseAuth.instance.currentUser;
+    userName = user.displayName == null ? user.email : user.displayName;
+
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
