@@ -23,6 +23,7 @@ class popupReservar extends StatefulWidget {
 class _popupReservarState extends State<popupReservar> {
   int _currentValue = 1;
   String _dropdownValue = "Efectivo";
+  String _pickupTime = "Lo antes posible";
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -73,6 +74,31 @@ class _popupReservarState extends State<popupReservar> {
                 }).toList(),
               ),
               SizedBox(height: 20),
+              Text(
+                "¿Cuándo deseas recogerlo?",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              DropdownButton<String>(
+                value: _pickupTime,
+                onChanged: (String newValue) {
+                  setState(() {
+                    _pickupTime = newValue;
+                  });
+                },
+                items: <String>[
+                  'Lo antes posible',
+                  'En media hora',
+                  'En dos horas'
+                ].map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+              SizedBox(height: 20),
               Container(
                 width: 500,
                 child: ClipRRect(
@@ -92,6 +118,7 @@ class _popupReservarState extends State<popupReservar> {
                           'producto': widget.idAlerta,
                           'medio_pago': _dropdownValue,
                           'unidades': _currentValue,
+                          'tiempo_recogida': _pickupTime,
                         });
                       });
                       Navigator.pop(context);
