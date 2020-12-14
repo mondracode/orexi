@@ -69,6 +69,7 @@ class _CuentaState extends State<Cuenta> {
                 padding: EdgeInsets.all(40.0),
                 child: Text(
                   userName,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     color: black,
                     fontWeight: FontWeight.bold,
