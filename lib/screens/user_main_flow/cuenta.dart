@@ -93,7 +93,7 @@ class _CuentaState extends State<Cuenta> {
                     padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
                     color: Colors.red[300],
                     onPressed: () async {
-                      int code = await AuthSignOut();
+                      int code = await authSignOut();
 
                       switch (code) {
                         case -1:
@@ -130,7 +130,7 @@ class _CuentaState extends State<Cuenta> {
     );
   }
 
-  Future<int> AuthSignOut() async {
+  Future<int> authSignOut() async {
     int code = -1;
 
     await FirebaseAuth.instance.signOut().catchError((error) {
