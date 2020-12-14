@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:orexi/components/rounded_button.dart';
@@ -21,6 +22,7 @@ class popupReservar extends StatefulWidget {
 }
 
 class _popupReservarState extends State<popupReservar> {
+  static User user = FirebaseAuth.instance.currentUser;
   int _currentValue = 1;
   String _dropdownValue = "Efectivo";
   String _pickupTime = "Lo antes posible";
@@ -104,9 +106,16 @@ class _popupReservarState extends State<popupReservar> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(80),
                   child: RaisedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       // Reservar y retornar _dropdownValue (metodo de pago) y
                       // _currentValue (cantidad)
+                      DocumentSnapshot doc = await FirebaseFirestore.instance
+                          .collection('producto')
+                          .doc(widget.idAlerta)
+                          .get();
+
+                      String id_rest = doc["id_establecimiento"];
+
                       FirebaseFirestore.instance
                           .collection('producto')
                           .doc(widget.idAlerta)
@@ -119,6 +128,10 @@ class _popupReservarState extends State<popupReservar> {
                           'medio_pago': _dropdownValue,
                           'unidades': _currentValue,
                           'tiempo_recogida': _pickupTime,
+                          'id_establecimiento': id_rest,
+                          'cliente': user.email,
+                          'nombre': widget.nombreAlerta,
+                          'precio': doc["precio"] * _currentValue,
                         });
                       });
                       Navigator.pop(context);

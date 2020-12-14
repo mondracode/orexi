@@ -5,6 +5,7 @@ class NearProduct extends StatelessWidget {
   final String productId;
   final String productImage;
   final String productName;
+  final int productQuantity;
   final int productPrice;
   final String userName;
   final Function press;
@@ -16,6 +17,7 @@ class NearProduct extends StatelessWidget {
     @required this.productName,
     @required this.productPrice,
     @required this.userName,
+    @required this.productQuantity,
     this.press,
   }) : super(key: key);
 
@@ -68,7 +70,6 @@ class NearProduct extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  
                   RichText(
                     text: TextSpan(
                       style: TextStyle(
@@ -77,7 +78,7 @@ class NearProduct extends StatelessWidget {
                       ),
                       children: <TextSpan>[
                         TextSpan(
-                          text: "Reservado por: " ,
+                          text: "Reservado por: ",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         TextSpan(

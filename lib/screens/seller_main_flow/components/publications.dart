@@ -6,6 +6,7 @@ class NearProduct extends StatelessWidget {
   final String productImage;
   final String productName;
   final String productDesc;
+  final int productQuantity;
   final int productPrice;
   final Function press;
 
@@ -16,6 +17,7 @@ class NearProduct extends StatelessWidget {
     @required this.productName,
     @required this.productDesc,
     @required this.productPrice,
+    @required this.productQuantity,
     this.press,
   }) : super(key: key);
 
