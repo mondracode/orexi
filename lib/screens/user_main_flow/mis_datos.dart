@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:orexi/components/input_field.dart';
 import 'package:orexi/components/rounded_button.dart';
@@ -10,6 +11,7 @@ class MisDatos extends StatefulWidget {
 }
 
 class _MisDatosState extends State<MisDatos> {
+  static User user = FirebaseAuth.instance.currentUser;
   String newName;
   // newPhoto
   @override
@@ -46,7 +48,20 @@ class _MisDatosState extends State<MisDatos> {
               RoundedButton(
                 text: "Actualizar cuenta",
                 // actualizar base de datos
-                press: () {},
+                press: () async {
+                  await FirebaseAuth.instance.currentUser
+                      .updateProfile(displayName: newName)
+                      .then((value) =>
+                          FirebaseAuth.instance.currentUser.reload());
+
+                  Navigator.pop(context);
+                },
+              ),
+              Text(
+                "El cambio se verá reflejado en el siguiente inicio de sesión",
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
               ),
             ],
           ),
