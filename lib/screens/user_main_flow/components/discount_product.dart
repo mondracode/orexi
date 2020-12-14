@@ -153,7 +153,7 @@ class _DiscountProductState extends State<DiscountProduct> {
                           showDialog(
                             context: context,
                             builder: (_) {
-                              return popupReservar(
+                              return PopupReservar(
                                 nombreAlerta: widget.productName,
                                 idAlerta: widget.productId,
                                 cantidadAlerta: widget.productQuantity,

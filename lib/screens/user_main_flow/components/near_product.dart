@@ -119,7 +119,7 @@ class _NearProductState extends State<NearProduct> {
                             showDialog(
                               context: context,
                               builder: (_) {
-                                return popupReservar(
+                                return PopupReservar(
                                   nombreAlerta: widget.productName,
                                   cantidadAlerta: widget.productQuantity,
                                   idAlerta: widget.productId,
