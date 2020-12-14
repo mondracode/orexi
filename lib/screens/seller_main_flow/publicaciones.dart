@@ -49,6 +49,7 @@ class _PublicacionesState extends State<Publicaciones> {
               }
               return ListView(
                 children: snapshot.data.docs.map((DocumentSnapshot doc) {
+                  String _tempId = doc.id;
                   return Publications(
                     productId: doc.id,
                     productImage: 'assets/images/placeholder.png',
@@ -65,10 +66,7 @@ class _PublicacionesState extends State<Publicaciones> {
                                   )));
                     },
                     eliminarBoton: () {
-                      FirebaseFirestore.instance
-                          .collection('producto')
-                          .doc(doc.id)
-                          .delete();
+                      showAlertDialog(context, doc.id);
                     },
                   );
                 }).toList(),
@@ -76,32 +74,6 @@ class _PublicacionesState extends State<Publicaciones> {
             },
           ),
         ),
-
-        // SizedBox(height: size.height * 0.03),
-        // NearProduct(
-        //   productImage: 'assets/images/placeholder.png',
-        //   productName: "Dos porciones de arroz",
-        //   productDesc: "Dos porciones de 60gr de arroz blanco y fideos",
-        //   productPrice: 8000,
-
-        //   press: () {},
-        // ),
-        // NearProduct(
-        //   productImage: 'assets/images/placeholder.png',
-        //   productName: "Tres alas de pollo",
-        //   productDesc: "Tres allas de pollo a la broaster",
-        //   productPrice: 9500,
-
-        //   press: () {},
-        // ),
-        // NearProduct(
-        //   productImage: 'assets/images/placeholder.png',
-        //   productName: "Seis panes hojaldrados",
-        //   productDesc: "Seis panes holaldrados horneados hoy en la mañana",
-        //   productPrice: 2500,
-
-        //   press: () {},
-        // ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -119,4 +91,60 @@ class _PublicacionesState extends State<Publicaciones> {
       ),
     );
   }
+}
+
+showAlertDialog(BuildContext context, String id) {
+  // set up the buttons
+  Widget cancelButton = FlatButton(
+    color: green,
+    child: Text(
+      "Cancelar",
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        color: white,
+      ),
+    ),
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
+  );
+  Widget continueButton = FlatButton(
+    color: Colors.red,
+    child: Text(
+      "Eliminar",
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        color: white,
+      ),
+    ),
+    onPressed: () {
+      FirebaseFirestore.instance.collection('producto').doc(id).delete();
+      Navigator.of(context).pop();
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text(
+      "Alerta",
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        color: black,
+      ),
+    ),
+    content: Text(
+        "Una vez eliminado el producto, no hay vuelta atrás. ¿Estás seguro?"),
+    actions: [
+      cancelButton,
+      continueButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
