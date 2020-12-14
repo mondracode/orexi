@@ -10,6 +10,8 @@ class DiscountProduct extends StatefulWidget {
   final int productFormerPrice;
   final int productCurrentPrice;
   final int productDistance;
+  final int productQuantity;
+  final int productDiscount;
   final Function press;
 
   const DiscountProduct({
@@ -21,6 +23,8 @@ class DiscountProduct extends StatefulWidget {
     @required this.productFormerPrice,
     @required this.productCurrentPrice,
     @required this.productDistance,
+    @required this.productQuantity,
+    @required this.productDiscount,
     this.press,
   }) : super(key: key);
 
@@ -32,12 +36,7 @@ class _DiscountProductState extends State<DiscountProduct> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    String discount =
-        (((widget.productFormerPrice - widget.productCurrentPrice) /
-                        widget.productFormerPrice) *
-                    100)
-                .toStringAsFixed(2) +
-            "%";
+    String discount = "-" + widget.productDiscount.toString() + " %";
     return Container(
       width: size.width * 0.9,
       height: size.height * 0.25,
@@ -155,7 +154,11 @@ class _DiscountProductState extends State<DiscountProduct> {
                             context: context,
                             builder: (_) {
                               return popupReservar(
-                                  nombreAlerta: widget.productName);
+                                nombreAlerta: widget.productName,
+                                idAlerta: widget.productId,
+                                cantidadAlerta: widget.productQuantity,
+                                nuevoPrecio: widget.productCurrentPrice,
+                              );
                             },
                           );
                         },

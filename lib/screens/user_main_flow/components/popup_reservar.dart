@@ -8,6 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class popupReservar extends StatefulWidget {
   final String nombreAlerta;
   final int cantidadAlerta;
+  final int nuevoPrecio;
   final String idAlerta;
 
   const popupReservar({
@@ -15,6 +16,7 @@ class popupReservar extends StatefulWidget {
     @required this.nombreAlerta,
     @required this.cantidadAlerta,
     @required this.idAlerta,
+    this.nuevoPrecio,
   }) : super(key: key);
 
   @override
@@ -131,7 +133,9 @@ class _popupReservarState extends State<popupReservar> {
                           'id_establecimiento': id_rest,
                           'cliente': user.email,
                           'nombre': widget.nombreAlerta,
-                          'precio': doc["precio"] * _currentValue,
+                          'precio': widget.nuevoPrecio == null
+                              ? doc["precio"] * _currentValue
+                              : widget.nuevoPrecio * _currentValue,
                         });
                       });
                       Navigator.pop(context);
