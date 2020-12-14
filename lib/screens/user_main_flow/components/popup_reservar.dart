@@ -5,10 +5,12 @@ import 'package:orexi/constants.dart';
 
 class popupReservar extends StatefulWidget {
   final String nombreAlerta;
+  final int cantidadAlerta;
 
   const popupReservar({
     Key key,
     @required this.nombreAlerta,
+    @required this.cantidadAlerta,
   }) : super(key: key);
 
   @override
@@ -42,7 +44,7 @@ class _popupReservarState extends State<popupReservar> {
               new NumberPicker.integer(
                   initialValue: _currentValue,
                   minValue: 1,
-                  maxValue: 20,
+                  maxValue: widget.cantidadAlerta,
                   onChanged: (newValue) =>
                       setState(() => _currentValue = newValue)),
               SizedBox(height: 20),

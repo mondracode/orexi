@@ -9,6 +9,7 @@ class NearProduct extends StatefulWidget {
   final String productDesc;
   final int productPrice;
   final int productDistance;
+  final int productQuantity;
   final Function press;
 
   const NearProduct({
@@ -19,6 +20,7 @@ class NearProduct extends StatefulWidget {
     @required this.productDesc,
     @required this.productPrice,
     @required this.productDistance,
+    @required this.productQuantity,
     this.press,
   }) : super(key: key);
 
@@ -114,7 +116,9 @@ class _NearProductState extends State<NearProduct> {
                             context: context,
                             builder: (_) {
                               return popupReservar(
-                                  nombreAlerta: widget.productName);
+                                nombreAlerta: widget.productName,
+                                cantidadAlerta: widget.productQuantity,
+                              );
                             },
                           );
                         },

@@ -61,6 +61,7 @@ class _CercaState extends State<Cerca> {
                     productDesc: doc["descripcion"],
                     productPrice: doc["precio"],
                     productDistance: doc["distancia"],
+                    productQuantity: doc["unidades"],
                     press: () {},
                   );
                 }).toList(),
@@ -68,40 +69,6 @@ class _CercaState extends State<Cerca> {
             },
           ),
         ),
-        // child: ListView(
-        //   padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
-        //   children: <Widget>[
-        //     SearchField(
-        //       hintText: "¿Qué quieres comer?",
-        //     ),
-        //     SizedBox(height: size.height * 0.03),
-
-        //     // NearProduct(
-        //     //   productImage: 'assets/images/placeholder.png',
-        //     //   productName: "Dos porciones de arroz",
-        //     //   productDesc: "Dos porciones de 60gr de arroz blanco y fideos",
-        //     //   productPrice: 8000,
-        //     //   productDistance: 20,
-        //     //   press: () {},
-        //     // ),
-        //     // NearProduct(
-        //     //   productImage: 'assets/images/placeholder.png',
-        //     //   productName: "Tres alas de pollo",
-        //     //   productDesc: "Tres allas de pollo a la broaster",
-        //     //   productPrice: 9500,
-        //     //   productDistance: 48,
-        //     //   press: () {},
-        //     // ),
-        //     // NearProduct(
-        //     //   productImage: 'assets/images/placeholder.png',
-        //     //   productName: "Seis panes hojaldrados",
-        //     //   productDesc: "Seis panes holaldrados horneados hoy en la mañana",
-        //     //   productPrice: 2500,
-        //     //   productDistance: 69,
-        //     //   press: () {},
-        //     // ),
-        //   ],
-        // ),
       ),
     );
   }

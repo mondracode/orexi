@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,8 @@ import 'package:orexi/screens/login/login_screen.dart';
 import 'package:orexi/screens/seller_main_flow/bottom_nav_bar.dart';
 import 'package:orexi/screens/welcome/components/background.dart';
 import 'package:orexi/constants.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProductDetails extends StatefulWidget {
   @override
@@ -19,8 +22,9 @@ class ProductDetails extends StatefulWidget {
 class _ProductDetailsState extends State<ProductDetails> {
   String nombre;
   String descripcion;
-  int precio;
-  String image = 'assets/images/placeholder.png';
+  int precio, unidades;
+  File image;
+  String imageURL = 'assets/images/placeholder.png';
   static User user = FirebaseAuth.instance.currentUser;
 
   @override
@@ -53,9 +57,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               ChooseButton(
-                press: () {
-                  //Cambiar imagen
-                },
+                press: uploadImage,
                 img: Image.asset('assets/images/placeholder.png'),
               ),
               InputField(
@@ -86,6 +88,12 @@ class _ProductDetailsState extends State<ProductDetails> {
                   precio = int.parse(value);
                 },
               ),
+              InputField(
+                hintText: "Cantidad",
+                onChanged: (value) {
+                  unidades = int.parse(value);
+                },
+              ),
               Container(
                   child: descripcion == null
                       ? Text(
@@ -106,7 +114,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                       'precio': precio,
                       'id_establecimiento': user.email,
                       'descuento': 0,
-                      'distancia': 555
+                      'distancia': 555,
+                      'unidades': unidades
                     });
                     Navigator.push(
                       context,
@@ -124,4 +133,6 @@ class _ProductDetailsState extends State<ProductDetails> {
       ),
     );
   }
+
+  uploadImage() async {}
 }
