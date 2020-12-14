@@ -5,13 +5,13 @@ import 'package:orexi/components/rounded_button.dart';
 import 'package:orexi/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class popupReservar extends StatefulWidget {
+class PopupReservar extends StatefulWidget {
   final String nombreAlerta;
   final int cantidadAlerta;
   final int nuevoPrecio;
   final String idAlerta;
 
-  const popupReservar({
+  const PopupReservar({
     Key key,
     @required this.nombreAlerta,
     @required this.cantidadAlerta,
@@ -20,10 +20,10 @@ class popupReservar extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _popupReservarState createState() => _popupReservarState();
+  _PopupReservarState createState() => _PopupReservarState();
 }
 
-class _popupReservarState extends State<popupReservar> {
+class _PopupReservarState extends State<PopupReservar> {
   static User user = FirebaseAuth.instance.currentUser;
   int _currentValue = 1;
   String _dropdownValue = "Efectivo";
