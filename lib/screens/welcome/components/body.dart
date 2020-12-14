@@ -18,7 +18,7 @@ class Body extends StatelessWidget {
               height: (size.height * 0.5),
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/placeholder.png'),
+                  image: AssetImage('assets/images/welcome.jpg'),
                   fit: BoxFit.fitHeight,
                 ),
               ),
