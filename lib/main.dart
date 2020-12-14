@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:orexi/screens/signup/components/body_client.dart';
 import 'package:orexi/screens/user_main_flow/bottom_nav_bar.dart';
 import 'package:orexi/screens/welcome/welcome_screen.dart';
@@ -11,7 +12,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(App());
+  runApp(Phoenix(
+    child: App(),
+  ));
 }
 
 class App extends StatelessWidget {
@@ -53,9 +56,9 @@ class App extends StatelessWidget {
 }
 
 class MyApp extends StatelessWidget {
+  bool isLoggedIn = false;
   @override
   Widget build(BuildContext context) {
-    bool isLoggedIn = false;
     //Check if logged in
     FirebaseAuth.instance.authStateChanges().listen((User user) {
       if (!(user == null)) {

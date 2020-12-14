@@ -1,10 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:orexi/classes/establecimiento.dart';
 import 'package:orexi/components/already_have_account.dart';
 import 'package:orexi/components/input_field.dart';
 import 'package:orexi/components/password_field.dart';
 import 'package:orexi/components/rounded_button.dart';
 import 'package:orexi/constants.dart';
+import 'package:orexi/screens/seller_main_flow/bottom_nav_bar.dart';
 import 'package:orexi/screens/signup/signup_choose.dart';
 import 'package:orexi/screens/user_main_flow/bottom_nav_bar.dart';
 import 'package:orexi/screens/welcome/components/background.dart';
@@ -25,6 +28,8 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
+    authEmail = "";
+    authPassword = "";
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
@@ -86,6 +91,7 @@ class _BodyState extends State<Body> {
                 press: () async {
                   int errorCode =
                       await authLogin(authEmail, authPassword, context);
+                  print(authEmail);
 
                   switch (errorCode) {
                     case 0:
@@ -99,14 +105,37 @@ class _BodyState extends State<Body> {
                       });
                       break;
                     case -1:
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return MyBottomNavigationBar();
-                          },
-                        ),
-                      );
+                      bool establecimiento = await FirebaseFirestore.instance
+                          .collection('establecimiento')
+                          .doc(authEmail)
+                          .get()
+                          .then((doc) {
+                        if (doc.exists) {
+                          return true;
+                        } else {
+                          return false;
+                        }
+                      });
+
+                      if (establecimiento) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return SellerBottomNavigationBar();
+                            },
+                          ),
+                        );
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return MyBottomNavigationBar();
+                            },
+                          ),
+                        );
+                      }
                   }
                 },
               ),
