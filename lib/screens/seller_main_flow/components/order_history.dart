@@ -1,37 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:orexi/constants.dart';
-import 'package:orexi/screens/user_main_flow/reportar.dart';
 
-class BoughtProduct extends StatefulWidget {
+class OrderHistory extends StatelessWidget {
   final String productId;
   final String productImage;
   final String productName;
-  String productState;
-  final String restaurantName;
+  final int productQuantity;
   final int productPrice;
+  final String userName;
   final Function press;
 
-  BoughtProduct({
+  const OrderHistory({
     Key key,
     this.productId,
-    this.productImage,
-    this.productName,
-    this.productState,
-    this.restaurantName,
-    this.productPrice,
+    @required this.productImage,
+    @required this.productName,
+    @required this.productPrice,
+    @required this.userName,
+    @required this.productQuantity,
     this.press,
   }) : super(key: key);
 
   @override
-  _BoughtProductState createState() => _BoughtProductState();
-}
-
-class _BoughtProductState extends State<BoughtProduct> {
-  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    // retrieve state from db
-    widget.productState = "Entregado";
     return Container(
       width: size.width * 0.9,
       height: size.height * 0.25,
@@ -56,7 +48,7 @@ class _BoughtProductState extends State<BoughtProduct> {
             //width: MediaQuery.of(context).size.width * 0.25,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(widget.productImage),
+                image: AssetImage(productImage),
                 fit: BoxFit.fitHeight,
               ),
               color: gray,
@@ -71,52 +63,55 @@ class _BoughtProductState extends State<BoughtProduct> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    widget.productName,
+                    productName,
                     style: TextStyle(
                       color: black,
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    widget.restaurantName,
-                    style: TextStyle(
-                      color: black,
-                      fontSize: 12,
+                  RichText(
+                    text: TextSpan(
+                      style: TextStyle(
+                        color: black,
+                        fontSize: 14,
+                      ),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: "Reservado por: ",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(
+                          text: userName,
+                          style: TextStyle(color: black),
+                        ),
+                      ],
                     ),
                   ),
-                  Text(
-                    // retrieve state from db
-                    "Estado del producto: " + widget.productState,
-                    style: TextStyle(
-                      color: black,
-                      fontSize: 12,
-                    ),
-                  ),
-                  Text(
-                    "\$" + widget.productPrice.toString(),
-                    style: TextStyle(
-                      color: black,
-                      fontSize: 14,
+                  RichText(
+                    text: TextSpan(
+                      style: TextStyle(
+                        color: black,
+                        fontSize: 14,
+                      ),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: "\$" + productPrice.toString(),
+                          style: TextStyle(color: black),
+                        ),
+                      ],
                     ),
                   ),
                   Container(
                     height: 25,
-                    width: 100,
+                    width: 130,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(40),
                       child: FlatButton(
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (_) {
-                              return Reportar();
-                            },
-                          );
-                        },
+                        onPressed: press,
                         color: green,
                         child: Text(
-                          "Reportar",
+                          "Ver Detalles",
                           style: TextStyle(
                             color: white,
                             fontSize: 14,

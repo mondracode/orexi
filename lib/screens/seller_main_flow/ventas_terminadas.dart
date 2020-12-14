@@ -3,15 +3,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:orexi/constants.dart';
 import 'package:orexi/screens/seller_main_flow/components/background.dart';
+import 'package:orexi/screens/seller_main_flow/components/order_history.dart';
 import 'package:orexi/screens/seller_main_flow/components/orders.dart';
 import 'package:orexi/screens/user_main_flow/components/search_field.dart';
 
-class Pedidos extends StatefulWidget {
+class VentasTerminadas extends StatefulWidget {
   @override
-  _PedidosState createState() => _PedidosState();
+  _VentasTerminadasState createState() => _VentasTerminadasState();
 }
 
-class _PedidosState extends State<Pedidos> {
+class _VentasTerminadasState extends State<VentasTerminadas> {
   static User user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
@@ -19,15 +20,18 @@ class _PedidosState extends State<Pedidos> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: white,
-        automaticallyImplyLeading: false,
         elevation: 0,
         title: Text(
-          "Mis ventas",
+          "Ventas Terminadas",
           style: TextStyle(
             color: black,
             fontWeight: FontWeight.bold,
             fontSize: 28.0,
           ),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: black),
+          onPressed: () => Navigator.of(context).pop(),
         ),
       ),
       body: Background(
@@ -47,16 +51,14 @@ class _PedidosState extends State<Pedidos> {
               }
               return ListView(
                 children: snapshot.data.docs.map((DocumentSnapshot doc) {
-                  return Orders(
+                  return OrderHistory(
                     productId: doc.id,
                     productImage: 'assets/images/placeholder.png',
                     productName: doc["nombre"],
                     productPrice: doc["precio"],
                     productQuantity: doc["unidades"],
                     userName: doc.data()["cliente"],
-                    notificarBoton: () {},
-                    cancelarBoton: () {},
-                    terminarBoton: () {},
+                    press: () {},
                   );
                 }).toList(),
               );

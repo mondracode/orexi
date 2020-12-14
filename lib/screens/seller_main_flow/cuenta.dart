@@ -7,6 +7,9 @@ import 'package:orexi/classes/usuario.dart';
 import 'package:orexi/components/rounded_button.dart';
 import 'package:orexi/constants.dart';
 import 'package:orexi/screens/seller_main_flow/components/background.dart';
+import 'package:orexi/screens/seller_main_flow/mi_restaurante.dart';
+import 'package:orexi/screens/seller_main_flow/ventas_terminadas.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Cuenta extends StatefulWidget {
   @override
@@ -18,6 +21,15 @@ class _CuentaState extends State<Cuenta> {
   String userIcon = 'assets/images/placeholder.png';
   Establecimiento est;
   String userName = "Establecimiento";
+
+  _launchURL() async {
+    const url = 'https://google.com';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   bool val = false;
   onSwitchValueChanged(bool newVal) {
@@ -73,15 +85,27 @@ class _CuentaState extends State<Cuenta> {
               SizedBox(height: size.height * 0.03),
               RoundedButton(
                 text: "MI RESTAURANTE",
-                press: () {},
+                press: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MiRestaurante()));
+                },
               ),
               RoundedButton(
-                text: "HISTORIAL DE VENTAS",
-                press: () {},
+                text: "TUS VENTAS",
+                press: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => VentasTerminadas()));
+                },
               ),
               RoundedButton(
                 text: "PREFERENCIAS",
                 press: () {},
+              ),
+              RoundedButton(
+                text: "CONTÁCTENOS",
+                press: _launchURL,
               ),
               //Cerrar sesion
               Container(
@@ -122,6 +146,7 @@ class _CuentaState extends State<Cuenta> {
                   letterSpacing: 8,
                 ),
               ),
+              SizedBox(height: size.height * 0.01),
             ],
           ),
         ),

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:orexi/constants.dart';
 
-class NearProduct extends StatelessWidget {
+class Publications extends StatelessWidget {
   final String productId;
   final String productImage;
   final String productName;
   final String productDesc;
   final int productQuantity;
   final int productPrice;
-  final Function press;
+  final Function editarBoton;
+  final Function eliminarBoton;
 
-  const NearProduct({
+  const Publications({
     Key key,
     this.productId,
     @required this.productImage,
@@ -18,7 +19,8 @@ class NearProduct extends StatelessWidget {
     @required this.productDesc,
     @required this.productPrice,
     @required this.productQuantity,
-    this.press,
+    this.editarBoton,
+    this.eliminarBoton,
   }) : super(key: key);
 
   @override
@@ -97,10 +99,29 @@ class NearProduct extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(40),
                       child: FlatButton(
-                        onPressed: press,
+                        onPressed: editarBoton,
                         color: green,
                         child: Text(
                           "Editar",
+                          style: TextStyle(
+                            color: white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: 25,
+                    width: 100,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(40),
+                      child: FlatButton(
+                        onPressed: eliminarBoton,
+                        color: Colors.red,
+                        child: Text(
+                          "Eliminar",
                           style: TextStyle(
                             color: white,
                             fontSize: 14,

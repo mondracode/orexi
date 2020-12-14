@@ -48,14 +48,15 @@ class _PublicacionesState extends State<Publicaciones> {
               }
               return ListView(
                 children: snapshot.data.docs.map((DocumentSnapshot doc) {
-                  return NearProduct(
+                  return Publications(
                     productId: doc.id,
                     productImage: 'assets/images/placeholder.png',
                     productName: doc["nombre"],
                     productDesc: doc["descripcion"],
                     productPrice: doc["precio"],
                     productQuantity: doc["unidades"],
-                    press: () {},
+                    editarBoton: () {},
+                    eliminarBoton: () {},
                   );
                 }).toList(),
               );
