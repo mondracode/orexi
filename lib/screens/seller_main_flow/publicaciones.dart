@@ -56,7 +56,12 @@ class _PublicacionesState extends State<Publicaciones> {
                     productPrice: doc["precio"],
                     productQuantity: doc["unidades"],
                     editarBoton: () {},
-                    eliminarBoton: () {},
+                    eliminarBoton: () {
+                      FirebaseFirestore.instance
+                          .collection('producto')
+                          .doc(doc.id)
+                          .delete();
+                    },
                   );
                 }).toList(),
               );
