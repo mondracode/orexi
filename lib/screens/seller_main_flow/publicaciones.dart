@@ -5,6 +5,7 @@ import 'package:orexi/constants.dart';
 import 'package:orexi/screens/products_flow/agregar_productos.dart';
 import 'package:orexi/screens/seller_main_flow/components/background.dart';
 import 'package:orexi/screens/seller_main_flow/components/publications.dart';
+import 'package:orexi/screens/seller_main_flow/editar_publicacion.dart';
 import 'package:orexi/screens/user_main_flow/components/search_field.dart';
 
 class Publicaciones extends StatefulWidget {
@@ -55,7 +56,12 @@ class _PublicacionesState extends State<Publicaciones> {
                     productDesc: doc["descripcion"],
                     productPrice: doc["precio"],
                     productQuantity: doc["unidades"],
-                    editarBoton: () {},
+                    editarBoton: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EditarPublicacion()));
+                    },
                     eliminarBoton: () {
                       FirebaseFirestore.instance
                           .collection('producto')
