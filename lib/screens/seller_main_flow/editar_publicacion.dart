@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:orexi/components/input_field.dart';
@@ -6,6 +7,13 @@ import 'package:orexi/constants.dart';
 import 'package:orexi/screens/user_main_flow/components/background.dart';
 
 class EditarPublicacion extends StatefulWidget {
+  final String pubId;
+
+  const EditarPublicacion({
+    Key key,
+    @required this.pubId,
+  }) : super(key: key);
+
   @override
   _EditarPublicacionState createState() => _EditarPublicacionState();
 }
@@ -68,13 +76,33 @@ class _EditarPublicacionState extends State<EditarPublicacion> {
               RoundedButton(
                 text: "Actualizar producto",
                 // actualizar base de datos
-                press: () {},
-              ),
-              Text(
-                "El cambio se verá reflejado cuando los CERDOS VUELEN",
-                style: TextStyle(
-                  color: Colors.grey,
-                ),
+                press: () async {
+                  if (newName != null && newName != "") {
+                    await FirebaseFirestore.instance
+                        .collection('producto')
+                        .doc(widget.pubId)
+                        .update({'nombre': newName});
+                  }
+                  if (newDesc != null && newDesc != "") {
+                    await FirebaseFirestore.instance
+                        .collection('producto')
+                        .doc(widget.pubId)
+                        .update({'descripcion': newDesc});
+                  }
+                  if (newPrice != null) {
+                    await FirebaseFirestore.instance
+                        .collection('producto')
+                        .doc(widget.pubId)
+                        .update({'precio': newPrice});
+                  }
+                  if (newQuantity != null) {
+                    await FirebaseFirestore.instance
+                        .collection('producto')
+                        .doc(widget.pubId)
+                        .update({'unidades': newQuantity});
+                  }
+                  Navigator.pop(context);
+                },
               ),
             ],
           ),

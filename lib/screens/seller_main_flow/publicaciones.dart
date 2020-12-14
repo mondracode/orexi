@@ -60,7 +60,9 @@ class _PublicacionesState extends State<Publicaciones> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => EditarPublicacion()));
+                              builder: (context) => EditarPublicacion(
+                                    pubId: doc.id,
+                                  )));
                     },
                     eliminarBoton: () {
                       FirebaseFirestore.instance
