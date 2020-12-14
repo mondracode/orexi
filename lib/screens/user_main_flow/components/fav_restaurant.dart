@@ -6,7 +6,7 @@ class FavoriteRestaurant extends StatelessWidget {
   final String restaurantName;
   final String restaurantAddress;
   final String restaurantImage;
-  final double restaurantRating;
+  final int restaurantRating;
   final Function press;
 
   const FavoriteRestaurant({
@@ -93,30 +93,30 @@ class FavoriteRestaurant extends StatelessWidget {
                           ),
                         ),
                         TextSpan(
-                          text: " " + restaurantRating.toString(),
+                          text: " " + restaurantRating.toString() + " ventas",
                         ),
                       ],
                     ),
                   ),
-                  Container(
-                    height: 25,
-                    width: 60,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(40),
-                      child: FlatButton(
-                        onPressed: press,
-                        color: green,
-                        child: Text(
-                          "Ver",
-                          style: TextStyle(
-                            color: white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Container(
+                  //   height: 25,
+                  //   width: 60,
+                  //   child: ClipRRect(
+                  //     borderRadius: BorderRadius.circular(40),
+                  //     child: FlatButton(
+                  //       onPressed: press,
+                  //       color: green,
+                  //       child: Text(
+                  //         "Ver",
+                  //         style: TextStyle(
+                  //           color: white,
+                  //           fontSize: 14,
+                  //           fontWeight: FontWeight.bold,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),

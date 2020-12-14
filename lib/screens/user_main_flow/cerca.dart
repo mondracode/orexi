@@ -43,8 +43,7 @@ class _CercaState extends State<Cerca> {
           child: StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
                 .collection('producto')
-                .limit(20)
-                .orderBy('distancia', descending: false)
+                .where('descuento', isEqualTo: 0)
                 .snapshots(),
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -72,14 +71,6 @@ class _CercaState extends State<Cerca> {
         ),
       ),
     );
-  }
-
-  Stream<QuerySnapshot> loadNearProducts() {
-    return FirebaseFirestore.instance
-        .collection('establecimiento/producto')
-        .orderBy('distancia', descending: false)
-        .limit(20)
-        .snapshots();
   }
 
   List<Producto> getProductsFromQuery(QuerySnapshot snapshot) {

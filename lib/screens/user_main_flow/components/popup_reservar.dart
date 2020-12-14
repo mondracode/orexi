@@ -118,6 +118,16 @@ class _PopupReservarState extends State<PopupReservar> {
 
                       String id_rest = doc["id_establecimiento"];
 
+                      DocumentSnapshot rest = await FirebaseFirestore.instance
+                          .collection('establecimiento')
+                          .doc(id_rest)
+                          .get();
+
+                      FirebaseFirestore.instance
+                          .collection('establecimiento')
+                          .doc(id_rest)
+                          .update({'num_ventas': rest['num_ventas'] + 1});
+
                       FirebaseFirestore.instance
                           .collection('producto')
                           .doc(widget.idAlerta)

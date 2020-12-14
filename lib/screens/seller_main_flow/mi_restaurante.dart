@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:orexi/components/input_field.dart';
 import 'package:orexi/components/rounded_button.dart';
@@ -12,6 +14,7 @@ class MiRestaurante extends StatefulWidget {
 class _MiRestauranteState extends State<MiRestaurante> {
   String newName;
   String newAddress;
+  static User user = FirebaseAuth.instance.currentUser;
   // newPhoto
   @override
   Widget build(BuildContext context) {
@@ -53,7 +56,28 @@ class _MiRestauranteState extends State<MiRestaurante> {
               RoundedButton(
                 text: "Actualizar cuenta",
                 // actualizar base de datos
-                press: () {},
+                press: () async {
+                  if (newName != null && newName != "") {
+                    await FirebaseAuth.instance.currentUser
+                        .updateProfile(displayName: newName)
+                        .then((value) =>
+                            FirebaseAuth.instance.currentUser.reload());
+                  }
+                  if (newAddress != null && newAddress != "") {
+                    await FirebaseFirestore.instance
+                        .collection('establecimiento')
+                        .doc(user.email)
+                        .update({'direccion': newAddress});
+                  }
+
+                  Navigator.pop(context);
+                },
+              ),
+              Text(
+                "El cambio se verá reflejado en el siguiente inicio de sesión",
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
               ),
             ],
           ),
