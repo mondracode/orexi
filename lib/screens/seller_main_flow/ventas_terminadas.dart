@@ -41,6 +41,7 @@ class _VentasTerminadasState extends State<VentasTerminadas> {
             stream: FirebaseFirestore.instance
                 .collection('reserva')
                 .where('id_establecimiento', isEqualTo: user.email)
+                .where('estado', isEqualTo: "Terminado")
                 .snapshots(),
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -65,38 +66,6 @@ class _VentasTerminadasState extends State<VentasTerminadas> {
             },
           ),
         ),
-        // child: ListView(
-        //   padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
-        //   children: <Widget>[
-
-        //    SearchField(
-        //       hintText: "Encuentra un pedido",
-        //     ),
-
-        //     SizedBox(height: size.height * 0.03),
-        //     NearProduct(
-        //       productImage: 'assets/images/placeholder.png',
-        //       productName: "Dos porciones de arroz",
-        //       userName: "Laura Sánchez",
-        //       productPrice: 8000,
-        //       press: () {},
-        //     ),
-        //     NearProduct(
-        //       productImage: 'assets/images/placeholder.png',
-        //       productName: "Tres alas de pollo",
-        //       userName: "Jorge Gómez",
-        //       productPrice: 9500,
-        //       press: () {},
-        //     ),
-        //     NearProduct(
-        //       productImage: 'assets/images/placeholder.png',
-        //       productName: "Seis panes hojaldrados",
-        //       userName: "Nicol García",
-        //       productPrice: 2500,
-        //       press: () {},
-        //     ),
-        //   ],
-        // ),
       ),
     );
   }

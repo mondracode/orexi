@@ -136,6 +136,7 @@ class _PopupReservarState extends State<PopupReservar> {
                           'precio': widget.nuevoPrecio == null
                               ? doc["precio"] * _currentValue
                               : widget.nuevoPrecio * _currentValue,
+                          'estado': "En curso",
                         });
                       });
                       Navigator.pop(context);

@@ -1,9 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:orexi/components/rounded_button.dart';
 import 'package:orexi/constants.dart';
 import 'package:orexi/screens/user_main_flow/components/background.dart';
 
 class Reportar extends StatefulWidget {
+  final String productId;
+
+  Reportar({
+    Key key,
+    @required this.productId,
+  }) : super(key: key);
+
   @override
   _ReportarState createState() => _ReportarState();
 }
@@ -11,6 +19,7 @@ class Reportar extends StatefulWidget {
 class _ReportarState extends State<Reportar> {
   // Para controlar el contenido del TextField
   final myController = TextEditingController();
+  String content;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -53,6 +62,9 @@ class _ReportarState extends State<Reportar> {
                   autofocus: true,
                   maxLength: 500,
                   maxLines: null,
+                  onChanged: (value) {
+                    content = value;
+                  },
                   controller: myController,
                   decoration: InputDecoration(
                     labelText: 'Descripción del incidente',
@@ -66,7 +78,11 @@ class _ReportarState extends State<Reportar> {
               RoundedButton(
                 text: "Enviar reporte",
                 press: () {
-                  // Enviar texto a algun lado xd
+                  FirebaseFirestore.instance.collection('reporte').add({
+                    'contenido': content,
+                    'id_producto': widget.productId,
+                  });
+
                   Navigator.pop(context);
                 },
               ),

@@ -60,14 +60,13 @@ class _HistorialState extends State<Historial> {
               return ListView(
                 children: snapshot.data.docs.map((DocumentSnapshot doc) {
                   // return Text(doc['nombre']);
-                  return NearProduct(
+                  return BoughtProduct(
                     productId: doc.id,
                     productImage: 'assets/images/placeholder.png',
                     productName: doc["nombre"],
                     productPrice: doc["precio"],
-                    productQuantity: doc["unidades"],
-                    productDesc: doc['fecha'],
-                    productDistance: 0,
+                    productState: doc["estado"],
+                    restaurantName: doc['medio_pago'],
                     press: () {},
                   );
                 }).toList(),

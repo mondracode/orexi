@@ -37,6 +37,7 @@ class _PedidosState extends State<Pedidos> {
             stream: FirebaseFirestore.instance
                 .collection('reserva')
                 .where('id_establecimiento', isEqualTo: user.email)
+                .where('estado', isNotEqualTo: 'Terminado')
                 .snapshots(),
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -54,9 +55,24 @@ class _PedidosState extends State<Pedidos> {
                     productPrice: doc["precio"],
                     productQuantity: doc["unidades"],
                     userName: doc.data()["cliente"],
-                    notificarBoton: () {},
-                    cancelarBoton: () {},
-                    terminarBoton: () {},
+                    notificarBoton: () {
+                      FirebaseFirestore.instance
+                          .collection('reserva')
+                          .doc(doc.id)
+                          .update({'estado': "En espera"});
+                    },
+                    cancelarBoton: () {
+                      FirebaseFirestore.instance
+                          .collection('reserva')
+                          .doc(doc.id)
+                          .update({'estado': "Cancelado"});
+                    },
+                    terminarBoton: () {
+                      FirebaseFirestore.instance
+                          .collection('reserva')
+                          .doc(doc.id)
+                          .update({'estado': "Terminado"});
+                    },
                   );
                 }).toList(),
               );

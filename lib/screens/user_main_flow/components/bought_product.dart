@@ -31,7 +31,6 @@ class _BoughtProductState extends State<BoughtProduct> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     // retrieve state from db
-    widget.productState = "Entregado";
     return Container(
       width: size.width * 0.9,
       height: size.height * 0.25,
@@ -110,7 +109,9 @@ class _BoughtProductState extends State<BoughtProduct> {
                           showDialog(
                             context: context,
                             builder: (_) {
-                              return Reportar();
+                              return Reportar(
+                                productId: widget.productId,
+                              );
                             },
                           );
                         },
