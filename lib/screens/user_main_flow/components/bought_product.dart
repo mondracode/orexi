@@ -1,32 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:orexi/constants.dart';
-import 'package:orexi/screens/user_main_flow/components/popup_reservar.dart';
+import 'package:orexi/screens/user_main_flow/reportar.dart';
 
-class NearProduct extends StatefulWidget {
+class BoughtProduct extends StatefulWidget {
   final String productId;
   final String productImage;
   final String productName;
-  final String productDesc;
+  final String restaurantName;
   final int productPrice;
-  final int productDistance;
   final Function press;
 
-  const NearProduct({
+  const BoughtProduct({
     Key key,
     this.productId,
-    @required this.productImage,
-    @required this.productName,
-    @required this.productDesc,
-    @required this.productPrice,
-    @required this.productDistance,
+    this.productImage,
+    this.productName,
+    this.restaurantName,
+    this.productPrice,
     this.press,
   }) : super(key: key);
 
   @override
-  _NearProductState createState() => _NearProductState();
+  _BoughtProductState createState() => _BoughtProductState();
 }
 
-class _NearProductState extends State<NearProduct> {
+class _BoughtProductState extends State<BoughtProduct> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -77,7 +75,7 @@ class _NearProductState extends State<NearProduct> {
                     ),
                   ),
                   Text(
-                    widget.productDesc,
+                    widget.restaurantName,
                     style: TextStyle(
                       color: black,
                       fontSize: 12,
@@ -94,12 +92,6 @@ class _NearProductState extends State<NearProduct> {
                           text: "\$" + widget.productPrice.toString(),
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        TextSpan(
-                          text: " - " +
-                              widget.productDistance.toString() +
-                              " metros",
-                          style: TextStyle(color: black),
-                        ),
                       ],
                     ),
                   ),
@@ -113,14 +105,13 @@ class _NearProductState extends State<NearProduct> {
                           showDialog(
                             context: context,
                             builder: (_) {
-                              return popupReservar(
-                                  nombreAlerta: widget.productName);
+                              return Reportar();
                             },
                           );
                         },
                         color: green,
                         child: Text(
-                          "Reservar",
+                          "Reportar",
                           style: TextStyle(
                             color: white,
                             fontSize: 14,

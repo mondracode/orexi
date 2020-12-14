@@ -4,6 +4,7 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:orexi/components/rounded_button.dart';
 import 'package:orexi/constants.dart';
 import 'package:orexi/screens/user_main_flow/components/background.dart';
+import 'package:orexi/screens/user_main_flow/historial_reservas.dart';
 import 'package:orexi/screens/user_main_flow/reportar.dart';
 
 class Cuenta extends StatefulWidget {
@@ -64,7 +65,10 @@ class _CuentaState extends State<Cuenta> {
               ),
               RoundedButton(
                 text: "HISTORIAL DE RESERVAS",
-                press: () {},
+                press: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Historial()));
+                },
               ),
               RoundedButton(
                 text: "AYUDA",

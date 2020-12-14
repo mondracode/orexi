@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:orexi/components/rounded_button.dart';
 import 'package:orexi/constants.dart';

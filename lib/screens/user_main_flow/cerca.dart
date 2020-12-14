@@ -53,7 +53,6 @@ class _CercaState extends State<Cerca> {
                   child: CircularProgressIndicator(),
                 );
               }
-
               return ListView(
                 children: snapshot.data.docs.map((DocumentSnapshot doc) {
                   return NearProduct(
