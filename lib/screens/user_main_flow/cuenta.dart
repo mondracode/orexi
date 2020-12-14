@@ -5,7 +5,10 @@ import 'package:orexi/components/rounded_button.dart';
 import 'package:orexi/constants.dart';
 import 'package:orexi/screens/user_main_flow/components/background.dart';
 import 'package:orexi/screens/user_main_flow/historial_reservas.dart';
+import 'package:orexi/screens/user_main_flow/mis_datos.dart';
 import 'package:orexi/screens/user_main_flow/reportar.dart';
+
+import 'package:url_launcher/url_launcher.dart';
 
 class Cuenta extends StatefulWidget {
   @override
@@ -17,6 +20,15 @@ class _CuentaState extends State<Cuenta> {
   String userIcon = 'assets/images/placeholder.png';
   // Comentado mientras tanto porque no hay email
   String userName;
+
+  _launchURL() async {
+    const url = 'https://google.com';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +73,10 @@ class _CuentaState extends State<Cuenta> {
               SizedBox(height: size.height * 0.03),
               RoundedButton(
                 text: "MIS DATOS",
-                press: () {},
+                press: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MisDatos()));
+                },
               ),
               RoundedButton(
                 text: "HISTORIAL DE RESERVAS",
@@ -70,18 +85,23 @@ class _CuentaState extends State<Cuenta> {
                       MaterialPageRoute(builder: (context) => Historial()));
                 },
               ),
-              RoundedButton(
+              // Comentado mientras porque ya esta en el historial de reserva
+              /* RoundedButton(
                 text: "AYUDA",
                 press: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Reportar()));
                 },
-              ),
+              ), */
               RoundedButton(
                 text: "PREFERENCIAS",
                 press: () {
                   print(user.email);
                 },
+              ),
+              RoundedButton(
+                text: "CONTÁCTENOS",
+                press: _launchURL,
               ),
               //Cerrar sesion
               Container(

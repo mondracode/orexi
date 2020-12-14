@@ -35,7 +35,7 @@ class _BodyState extends State<Body> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(size.height * 0.1),
         child: AppBar(
-          backgroundColor: gray,
+          backgroundColor: white,
           centerTitle: true,
           iconTheme: IconThemeData(
             color: black,

@@ -17,7 +17,6 @@ class _ReportarState extends State<Reportar> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: white,
-        automaticallyImplyLeading: false,
         elevation: 0,
         title: Text(
           "Reportar producto",
@@ -26,6 +25,10 @@ class _ReportarState extends State<Reportar> {
             fontWeight: FontWeight.bold,
             fontSize: 28.0,
           ),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: black),
+          onPressed: () => Navigator.of(context).pop(),
         ),
       ),
       body: Background(

@@ -45,7 +45,7 @@ class SignupSelect extends StatelessWidget {
                     ),
                   );
                 },
-                img: Image.asset('assets/images/placeholder.png'),
+                img: Image.asset('assets/images/buy_option.png'),
               ),
               Text(
                 "Quiero comprar",
@@ -66,7 +66,7 @@ class SignupSelect extends StatelessWidget {
                     ),
                   );
                 },
-                img: Image.asset('assets/images/placeholder.png'),
+                img: Image.asset('assets/images/sell_option.png'),
               ),
               Text(
                 "Quiero vender",

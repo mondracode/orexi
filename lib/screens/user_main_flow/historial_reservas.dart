@@ -16,7 +16,6 @@ class _HistorialState extends State<Historial> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: white,
-        automaticallyImplyLeading: false,
         elevation: 0,
         title: Text(
           "Historial de reservas",
@@ -26,14 +25,18 @@ class _HistorialState extends State<Historial> {
             fontSize: 28.0,
           ),
         ),
-        actions: <Widget>[
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: black),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        /* actions: <Widget>[
           IconButton(
             icon: Icon(Icons.filter_alt),
             iconSize: 30,
             color: black,
             onPressed: () {},
           ),
-        ],
+        ], */
       ),
       body: Background(
         child: ListView(
