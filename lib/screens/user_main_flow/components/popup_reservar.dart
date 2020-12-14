@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:orexi/components/rounded_button.dart';
 import 'package:orexi/constants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class popupReservar extends StatefulWidget {
   final String nombreAlerta;
   final int cantidadAlerta;
+  final String idAlerta;
 
   const popupReservar({
     Key key,
     @required this.nombreAlerta,
     @required this.cantidadAlerta,
+    @required this.idAlerta,
   }) : super(key: key);
 
   @override
@@ -75,9 +78,24 @@ class _popupReservarState extends State<popupReservar> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(80),
                   child: RaisedButton(
-                    onPressed: () {},
-                    // Reservar y retornar _dropdownValue (metodo de pago) y
-                    // _currentValue (cantidad)
+                    onPressed: () {
+                      // Reservar y retornar _dropdownValue (metodo de pago) y
+                      // _currentValue (cantidad)
+                      FirebaseFirestore.instance
+                          .collection('producto')
+                          .doc(widget.idAlerta)
+                          .update({
+                        'unidades': widget.cantidadAlerta - _currentValue
+                      }).then((value) {
+                        FirebaseFirestore.instance.collection('reserva').add({
+                          'fecha': DateTime.now().toString(),
+                          'producto': widget.idAlerta,
+                          'medio_pago': _dropdownValue,
+                          'unidades': _currentValue,
+                        });
+                      });
+                      Navigator.pop(context);
+                    },
                     color: green,
                     textColor: white,
                     child: Text(

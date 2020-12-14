@@ -56,6 +56,7 @@ class _CercaState extends State<Cerca> {
               return ListView(
                 children: snapshot.data.docs.map((DocumentSnapshot doc) {
                   return NearProduct(
+                    productId: doc.id,
                     productImage: 'assets/images/placeholder.png',
                     productName: doc["nombre"],
                     productDesc: doc["descripcion"],

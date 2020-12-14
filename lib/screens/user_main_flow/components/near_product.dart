@@ -14,7 +14,7 @@ class NearProduct extends StatefulWidget {
 
   const NearProduct({
     Key key,
-    this.productId,
+    @required this.productId,
     @required this.productImage,
     @required this.productName,
     @required this.productDesc,
@@ -118,6 +118,7 @@ class _NearProductState extends State<NearProduct> {
                               return popupReservar(
                                 nombreAlerta: widget.productName,
                                 cantidadAlerta: widget.productQuantity,
+                                idAlerta: widget.productId,
                               );
                             },
                           );
