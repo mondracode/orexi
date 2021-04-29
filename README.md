@@ -8,7 +8,7 @@
 
 ### **Orexi means _appetite_ in greek.** 🌐
 
-Orexi is a proof of concept for an app that aims to reduce food waste, by giving restaurants and clients a platform to exchange leftover food before it is wasted.
+Orexi is a proof of concept for an app that aims to reduce food waste, by giving restaurants and clients a platform to exchange leftover food before it gets thrown away.
 
 With Orexi, restaurants are able to post their leftover food, and -as long as its condition is appropiate for consumption- clients have the possibility to buy those leftovers at a lower price. The buyer can then recieve the food by takeout at the restaurants.
 
